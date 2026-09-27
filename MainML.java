@@ -13,7 +13,8 @@ public class MainML{
         while (readFile.hasNextLine()){
             String line = readFile.nextLine();
             System.out.println(line);
-
+        }
+        
         readFile.close();
     }
 }
