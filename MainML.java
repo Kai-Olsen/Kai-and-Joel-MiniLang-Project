@@ -10,11 +10,13 @@ public class MainML{
         Scanner readFile = new Scanner(inFile);
         
         // Break when file is out of lines
+        System.out.println("Input: ");
         while (readFile.hasNextLine()){
+            // Reading each line from the text file and printing it out
             String line = readFile.nextLine();
             System.out.println(line);
         }
-        
+
         readFile.close();
     }
 }
