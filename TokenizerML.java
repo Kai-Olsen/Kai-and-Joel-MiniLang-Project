@@ -24,6 +24,12 @@ public class TokenizerML{
                 continue;
             }
 
+            // Comment check to ignore the line if it is a comment line
+            if(c == '/' && pos + 1 < line.length() && line.charAt(pos+1) == '/')
+                break; // breaking because we don't have to check this line anymore
+
+            // Checking for multi-character operations, like == or <= 
+            
             
 
         }
