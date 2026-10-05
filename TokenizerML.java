@@ -28,8 +28,26 @@ public class TokenizerML{
             if(c == '/' && pos + 1 < line.length() && line.charAt(pos+1) == '/')
                 break; // breaking because we don't have to check this line anymore
 
-            // Checking for multi-character operations, like == or <= 
-            
+            // Checking for keyword indicators
+            if(Character.isLetter(c)) {
+                // Looping through to see if it is a valid keyword
+                int start = pos;
+                while(pos < line.length() && Character.isLetter(line.charAt(pos)))
+                    pos++;
+                // Putting the word together
+                String word = line.substring(start, pos);
+                
+                // Seeing if the word is a keyword
+                if (DictionaryML.KEYWORDS.containsKey(word)){
+                    
+                }
+            }
+
+            // Checking for multi-character operations first, like == or <= 
+            if(pos + 1 < line.length()) { // makes sure that the operator isn't the last characters
+                String twoChar = line.substring(pos, pos+2); // formining the 
+                //DictionaryML.OPERATORS
+            }
             
 
         }

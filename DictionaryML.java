@@ -1,12 +1,13 @@
-import java.util.Dictionary;
+import java.util.Map;
 import java.util.Hashtable;
 
 public class DictionaryML{
-    // Creating a dictionary for the keywords using the dictionary class
-    final Dictionary<String, String> KEYWORDS = new Hashtable<>();
+    // Using the Map class because it allows us to use the containsKey method for tokenizing
+    // Creating a dictionary for the keywords using the Map class
+    final static Map<String, String> KEYWORDS = new Hashtable<>();
 
-    // Creating a dictionary for the operators using the dictionary class
-    final Dictionary<String, String> OPERATORS = new Hashtable<>();
+    // Creating a dictionary for the operators using the Map class
+    final static Map<String, String> OPERATORS = new Hashtable<>();
 
     public DictionaryML() {
         // Initializing the keyphrases that we will be looking for to read MiniLang programs
