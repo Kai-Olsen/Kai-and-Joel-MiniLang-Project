@@ -16,6 +16,12 @@ public class DictionaryML{
         KEYWORDS.put("then", "THEN");
         KEYWORDS.put("else", "ELSE");
         KEYWORDS.put("display", "DISPLAY");
+        KEYWORDS.put("abs", "ABS");
+        KEYWORDS.put("sqrt", "SQRT");
+        KEYWORDS.put("min", "MIN");
+        KEYWORDS.put("max", "MAX");
+        KEYWORDS.put("pow", "POW");
+        KEYWORDS.put("average", "AVG");
 
         // Initializing the operators that we will be looking for to evaluate MiniLang programs
         OPERATORS.put("+", "PLUS");
