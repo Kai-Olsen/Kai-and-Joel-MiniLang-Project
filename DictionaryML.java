@@ -1,28 +1,22 @@
 import java.util.Map;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 public class DictionaryML{
     // Using the Map class because it allows us to use the containsKey method for tokenizing
     // Creating a dictionary for the keywords using the Map class
-    final static Map<String, String> KEYWORDS = new Hashtable<>();
+    final static Map<String, String> KEYWORDS = new HashMap<>();
 
     // Creating a dictionary for the operators using the Map class
-    final static Map<String, String> OPERATORS = new Hashtable<>();
+    final static Map<String, String> OPERATORS = new HashMap<>();
 
-    public DictionaryML() {
+    static { // Autimatically reads.
         // Initializing the keyphrases that we will be looking for to read MiniLang programs
         KEYWORDS.put("let", "LET");
         KEYWORDS.put("if", "IF");
         KEYWORDS.put("then", "THEN");
         KEYWORDS.put("else", "ELSE");
         KEYWORDS.put("display", "DISPLAY");
-        KEYWORDS.put("abs", "ABS");
-        KEYWORDS.put("sqrt", "SQRT");
-        KEYWORDS.put("min", "MIN");
-        KEYWORDS.put("max", "MAX");
-        KEYWORDS.put("pow", "POW");
-        KEYWORDS.put("average", "AVG");
-
+        
         // Initializing the operators that we will be looking for to evaluate MiniLang programs
         OPERATORS.put("+", "PLUS");
         OPERATORS.put("-", "MINUS");
@@ -31,7 +25,8 @@ public class DictionaryML{
         OPERATORS.put("%", "MOD");
         OPERATORS.put("^", "EXPONENT");
         OPERATORS.put("=", "ASSIGN");
-        OPERATORS.put(";", "END");
+        OPERATORS.put(";", "SEMICOLON");
+        OPERATORS.put(",", "COMMA");
         OPERATORS.put("(", "LPAREN");
         OPERATORS.put(")", "RPAREN");
         OPERATORS.put("==", "EQ");
