@@ -3,7 +3,7 @@ import java.util.*;
 public class TokenizerML{
     private String line;                // The line of the ML file being tokenized.
     private int pos;                    // The position of the pointer
-    private List<Tokens> tokens;     // The list of tokens
+    private List<Tokens> tokens;        // The list of tokens
 
     // Constructor for the tokenizer
     public TokenizerML(String line){
@@ -115,17 +115,5 @@ public class TokenizerML{
             throw new RuntimeException("Invalid character: " + c);
         }
         return tokens;
-    }
-
-    // Creating a Tokens class in order to each token type with its value.
-    public class Tokens {
-        public String type;
-        public String value;
-
-        // Constructor for Tokens 
-        public Tokens(String t, String v){
-            type = t;
-            value = v;            
-        }
     }
 }
