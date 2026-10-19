@@ -10,4 +10,28 @@ public class ParserML{
         tokens = t;
         pos = 0;
     }
+    
+    /**
+     * CurrentToken method gives the current token
+     * @return Returns the token in the current position
+     */
+    private Tokens CurrentToken(){
+        return tokens.get(pos);
+    }
+
+    /**
+     * MatchToken method sees if a given token type matches the type of the current token.
+     * @param tokenType the given token type we are comparing to.
+     * @return true if the given token matches the current token. false otherwise.
+     */
+    private boolean MatchToken(String tokenType){
+        // Checking if the current token type matches with the given token type
+        if (CurrentToken().type.equals(tokenType)){
+            pos++;
+            return true;
+        }
+
+        // Returning flase because it didn't match.
+        return false;
+    }
 } 
