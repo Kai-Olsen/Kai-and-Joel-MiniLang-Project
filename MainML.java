@@ -32,6 +32,10 @@ public class MainML{
             System.out.println(tokens);
         }
 
+        //calling parser
+        ParserML parser = new ParserML(allTokens);
+        parser.ParseProgram();
+
         readFile.close();
     }
 }
