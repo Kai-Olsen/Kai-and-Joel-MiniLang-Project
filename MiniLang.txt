@@ -5,3 +5,4 @@ display (y);
 display (abs(-12));
 display (pow(2,4));
 display (max(abs(-12), min(20, pow(2,3))));
+display (average(average(10, 20), 30));
