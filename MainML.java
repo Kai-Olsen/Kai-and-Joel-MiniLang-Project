@@ -22,20 +22,37 @@ public class MainML{
 
             // Putting the line through TokenizerML in order to store the tokens to allTokens for our parser
             TokenizerML tokenize = new TokenizerML(line);
-            allTokens.addAll(tokenize.tokenizer());
+            // Catching any errors in the tokenizer
+            try{
+                allTokens.addAll(tokenize.tokenizer());
+            } catch (RuntimeException e) {
+                System.err.println(e.getMessage());
+                readFile.close();
+                return;
+            }
         }
         // Adding and end of file token to indicate to our parser that it has reached the end of the file.
         allTokens.add(new Tokens("EOF", ""));
 
         // Start of the Trace mode
-        for(Tokens tokens : allTokens){
-            System.out.println(tokens);
+        // Checking for --trace in the consol arguments to turn on trace mode
+        boolean traceEnabled = args.length > 0 && args[0].equals("--trace"); 
+        if (traceEnabled){
+            System.out.println();
+            for(Tokens tokens : allTokens){
+                System.out.println(tokens);
+            }
+            System.out.println();
         }
 
         //calling parser
-        ParserML parser = new ParserML(allTokens);
-        parser.ParseProgram();
-
+        ParserML parser = new ParserML(allTokens, traceEnabled);
+        // Catching any errors within the parsing of the code and printing the given message
+        try {
+            parser.ParseProgram();
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+        }
         readFile.close();
     }
 }

@@ -112,7 +112,7 @@ public class TokenizerML{
             }
 
             // Error - invalid character
-            throw new RuntimeException("Invalid character: " + c);
+            throw new RuntimeException("Error: Invalid character: " + c);
         }
         return tokens;
     }
