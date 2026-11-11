@@ -127,7 +127,7 @@ public class ParserML {
         } else {
             MatchToken("SEMICOLON");
         }
-        System.out.println("\nOutput:\nResult: " + formatValue(value));
+        System.out.println("Result: " + formatValue(value));
     }
 
     // if condition then statement else statement
@@ -155,7 +155,7 @@ public class ParserML {
             ParseDisplay(false);
         } else {
             Object value = ParseExpression();
-            System.out.println("\nOutput:\nResult: " + formatValue(value));
+            System.out.println("Result: " + formatValue(value));
             MatchToken("SEMICOLON");
         }
     }
@@ -290,7 +290,7 @@ public class ParserML {
                 : toNumber(left) - toNumber(right);
             
             String symbol = operator.equals("PLUS") ? "+" : "-";
-            traceMode("EVAL", formatValue(left) + " " + symbol + " " + formatValue(right) + " = " + formatValue(result));
+            traceMode("EVAL", "\t" + formatValue(left) + " " + symbol + " " + formatValue(right) + " = " + formatValue(result));
 
             left = result;
         }
@@ -326,7 +326,7 @@ public class ParserML {
                     : toNumber(left) % divisor;
                 symbol = operator.equals("DIV") ? "/" : "%";
             }
-            traceMode("EVAL", formatValue(left) + " " + symbol + " " + formatValue(right) + " = " + formatValue(result));
+            traceMode("EVAL", "\t" + formatValue(left) + " " + symbol + " " + formatValue(right) + " = " + formatValue(result));
             left = result;
         }
         return left;
@@ -341,7 +341,7 @@ public class ParserML {
         if (MatchToken("EXPONENT")) {
             Object right = ParsePower();
             result = Math.pow(toNumber(left), toNumber(right));
-            traceMode("EVAL", formatValue(left) + " ^ " + formatValue(right) + " = " + formatValue(result));
+            traceMode("EVAL", "\t" + formatValue(left) + " ^ " + formatValue(right) + " = " + formatValue(result));
             left = result;
         }
         return left;
@@ -406,40 +406,56 @@ public class ParserML {
 
             return variables.get(name);
         }
-
-        throw new RuntimeException("Syntax Error: Expected an expression after '" + tokens.get(pos-1).value + "'. Found '" + CurrentToken().value + "' instead.");
+        // Throwing an exception if the grammer is incorrect 
+        String previous = pos > 0 ? tokens.get(pos - 1).value : "start of input";
+        throw new RuntimeException("Syntax Error: Expected an expression after '" + previous + "'. Found '" + CurrentToken().value + "' instead.");
     }
 
     // Built in Functions //
     private Object ParseFunction(String name) {
         Object first = ParseExpression();
-        Object second = null;
+        Object second = null; // second is not required, so it is null
+        // Assigning the second variable if there is a comma to indicate there are multiple parameters for the function.
         if (MatchToken("COMMA")) second = ParseExpression();
         Expect("RPAREN", "Missing ')' after function arguments.");
         double x = toNumber(first);
 
+        // Setting the foundations for tracing the functions
+        String arguments = formatValue(first);
+        if (second != null)
+            arguments += ", " + formatValue(second);
+
+        Object result;
+
         switch (name) {
-            case "abs":
+            case "abs": // abs(x)
                 requireNoSecondArgument(name, second);
-                return Math.abs(x);
-            case "sqrt":
+                result = Math.abs(x);
+                break;
+            case "sqrt": // sqrt(x)
                 requireNoSecondArgument(name, second);
-                if (x < 0) {
+                if (x < 0) // Square roots can't be negative
                     throw new RuntimeException("Error: sqrt() cannot accept a negative number.");
-                }
-                return Math.sqrt(x);
-            case "pow":
-                return Math.pow(x, toNumber(requireSecondArgument(name, second)));
-            case "min":
-                return Math.min(x, toNumber(requireSecondArgument(name, second)));
-            case "max":
-                return Math.max(x, toNumber(requireSecondArgument(name, second)));
+                result = Math.sqrt(x);
+                break;
+            case "pow": // pow(x, y)
+                result = Math.pow(x, toNumber(requireSecondArgument(name, second)));
+                break;
+            case "min": // min(x, y)
+                result =  Math.min(x, toNumber(requireSecondArgument(name, second)));
+                break;
+            case "max": // max(x, y)
+                result = Math.max(x, toNumber(requireSecondArgument(name, second)));
+                break;
             // custom function
-            case "average":
-                return (x + toNumber(requireSecondArgument(name, second))) / 2.0;
+            case "average": // average(x, y)
+                result = (x + toNumber(requireSecondArgument(name, second))) / 2.0;
+                break;
             default:
                 throw new RuntimeException("Error: Unknown function: " + name);
         }
+        traceMode("EVAL", "\t" + name + "(" + arguments + ") = " + formatValue(result));
+        return result;
     }
 
     // Checks that two-argument functions have a second argument.

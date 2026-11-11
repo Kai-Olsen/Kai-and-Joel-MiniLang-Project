@@ -42,10 +42,10 @@ public class MainML{
             for(Tokens tokens : allTokens){
                 System.out.println(tokens);
             }
-            System.out.println();
         }
 
         //calling parser
+        System.out.println("\nOutput:");
         ParserML parser = new ParserML(allTokens, traceEnabled);
         // Catching any errors within the parsing of the code and printing the given message
         try {
