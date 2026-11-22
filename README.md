@@ -1,1 +1,5 @@
 # Kai-and-Joel-MiniLang-Project
+
+MiniLang is a small programming language designed to support variable declaration, arithmetic expressions, Boolean expressions, Strings, conditional statements, and built in functions. The main goal of this project was to develop the required pieces of what a MiniLang program should look like and use that to create an interpreter that reads in a text file, analyze each piece to form the correct outputs, and handle errors.  
+
+Our interpreter starts by taking a MiniLang text file and reading the source code into the tokenizer/lexer to get the correct tokens. It checks to see if the source code follows the correct MiniLang grammar rules, evaluate expressions and functions, manage variables, and displays the results in a concise manner. In addition, it detects and reports errors that are meaningful to the compiler, such as undeclared variables, variable redeclarations, invalid syntax, missing parentheses, and division by zero. Finally, it includes a trace mode, which displays how the interpreter runs internally. 
