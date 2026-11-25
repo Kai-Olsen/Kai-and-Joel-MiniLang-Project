@@ -186,12 +186,27 @@ public class ParserML {
 
     // Parsing Expressions //
 
-    // OR: ||
     private Object ParseExpression() {
         traceMode("PARSE", "Expression");
+        // Executes expressions in print statements.
+        if (CurrentToken().type.equals("IDENTIFIER")
+                && pos + 1 < tokens.size()
+                && tokens.get(pos + 1).type.equals("ASSIGN")) {
+            String name = CurrentToken().value;
+            pos += 2;
+            if (!variables.containsKey(name)) {
+                throw new RuntimeException("Error: Variable '" + name + "' has not been declared.");
+            }
+
+            Object value = ParseExpression();
+            Object oldValue = variables.put(name, value);
+            traceMode("ENV", "\t" + name + ": " + formatValue(oldValue) + " -> " + formatValue(value));
+            return value;
+        }
         return ParseOr();
     }
 
+    // OR: ||
     private Object ParseOr() {
         Object left = ParseAnd();
         while (MatchToken("OR")) {

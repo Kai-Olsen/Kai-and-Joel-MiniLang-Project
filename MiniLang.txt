@@ -1,1 +1,1 @@
-display(@);
+display(max(abs(-12), min(20, pow(2,3))));
